@@ -1,5 +1,6 @@
-# Кофеварка  
+# Кофеварка
 
+    http://localhost:8080/swagger-ui/index.html#
 ---
 ## REST API  
 ### 1 Coffee
