@@ -7,10 +7,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.nemcov.coffee_maker.entity.Coffee;
+import ru.nemcov.coffee_maker.service.CoffeeService;
 
 @RestController
 @Tag(name = "Основное меню")
 public class CoffeeController {
+
+    private final CoffeeService coffeeService;
+
+    public CoffeeController(CoffeeService coffeeService) {
+        this.coffeeService = coffeeService;
+    }
 
     @Operation(
             description = "Получить список напитков",
@@ -18,13 +25,6 @@ public class CoffeeController {
     )
     @GetMapping
     public ResponseEntity<List<Coffee>> getAll() {
-        List<Coffee> coffee = List.of(
-                Coffee.builder().coffeeId(1L).name("Эспрессо").build(),
-                Coffee.builder().coffeeId(2L).name("Американо").build(),
-                Coffee.builder().coffeeId(3L).name("Каппучино").build(),
-                Coffee.builder().coffeeId(4L).name("Мокко").build()
-        );
-
-        return ResponseEntity.ok(coffee);
+        return ResponseEntity.ok(coffeeService.getAll());
     }
 }
