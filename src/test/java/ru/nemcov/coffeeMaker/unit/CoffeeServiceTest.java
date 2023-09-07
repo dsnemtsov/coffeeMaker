@@ -13,6 +13,6 @@ class CoffeeServiceTest {
 
     @Test
     void shouldGetAllCoffee() {
-        assertThat(service.getAll()).isNotNull();
+        assertThat(service.findAll()).isNotNull();
     }
 }

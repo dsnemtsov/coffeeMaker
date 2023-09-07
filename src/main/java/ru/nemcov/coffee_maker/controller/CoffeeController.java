@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.nemcov.coffee_maker.entity.Coffee;
@@ -22,11 +23,20 @@ public class CoffeeController {
     }
 
     @Operation(
-            description = "Получить список напитков",
-            summary = "Список напитков"
+            description = "Получить список кофе",
+            summary = "Список кофе"
     )
     @GetMapping
-    public ResponseEntity<List<Coffee>> getAll() {
-        return ResponseEntity.ok(coffeeService.getAll());
+    public ResponseEntity<List<Coffee>> findAll() {
+        return ResponseEntity.ok(coffeeService.findAll());
+    }
+
+    @Operation(
+            description = "Получить кофе",
+            summary = "Кофе"
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable Long id) {
+        return ResponseEntity.ok(coffeeService.findById(id));
     }
 }
