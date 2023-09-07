@@ -13,7 +13,12 @@ import ru.nemcov.coffee_maker.util.GlobalError;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<GlobalError> handleAccessTokenException(IllegalArgumentException exception) {
+    public ResponseEntity<GlobalError> handleIllegalArgumentException(IllegalArgumentException exception) {
+        return handleException(exception, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<GlobalError> handleIllegalStateExceptionException(IllegalStateException exception) {
         return handleException(exception, HttpStatus.BAD_REQUEST);
     }
 

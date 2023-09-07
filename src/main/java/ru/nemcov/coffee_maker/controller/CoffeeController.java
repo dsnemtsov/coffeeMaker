@@ -39,4 +39,13 @@ public class CoffeeController {
     public ResponseEntity findById(@PathVariable Long id) {
         return ResponseEntity.ok(coffeeService.findById(id));
     }
+
+    @Operation(
+            description = "Заказать кофе",
+            summary = "Заказ кофе"
+    )
+    @GetMapping("/order/{id}")
+    public ResponseEntity orderCoffee(@PathVariable Long id) {
+        return ResponseEntity.ok(coffeeService.orderCoffee(id));
+    }
 }

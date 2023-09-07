@@ -1,9 +1,9 @@
-INSERT INTO coffee(name)
+INSERT INTO coffee(name, available)
 VALUES
-    ('Эспрессо'),
-    ('Американо'),
-    ('Капучино'),
-    ('Мокко')
+    ('Эспрессо', true),
+    ('Американо', true),
+    ('Капучино', true),
+    ('Мокко', true)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO ingredient(name, quantity)

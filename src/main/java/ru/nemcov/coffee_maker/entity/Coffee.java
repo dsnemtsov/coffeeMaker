@@ -20,4 +20,6 @@ public class Coffee {
     private Long coffeeId;
 
     private String name;
+
+    private boolean available;
 }

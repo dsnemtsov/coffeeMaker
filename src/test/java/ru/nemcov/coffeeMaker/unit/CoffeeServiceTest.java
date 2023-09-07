@@ -38,4 +38,29 @@ class CoffeeServiceTest {
                 .isThrownBy(() -> service.findById(1L))
                 .withMessage("Coffee doesn't exist");
     }
+
+    @Test
+    void shouldOrderCoffee() {
+        when(coffeeRepo.findById(anyLong())).thenReturn(Optional.of(new Coffee(
+                1L,
+                "Ёспрессо",
+                true
+        )));
+
+        service.orderCoffee(anyLong());
+        verify(coffeeRepo).findById(anyLong());
+    }
+
+    @Test
+    void shouldNotOrderCoffee() {
+        when(coffeeRepo.findById(anyLong())).thenReturn(Optional.of(new Coffee(
+                1L,
+                "Ёспрессо",
+                false
+        )));
+
+        assertThatExceptionOfType(IllegalStateException.class)
+                .isThrownBy(() -> service.orderCoffee(1L))
+                .withMessage("Coffee is not available");
+    }
 }
