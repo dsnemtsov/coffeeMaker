@@ -6,6 +6,7 @@ import ru.nemcov.coffee_maker.entity.Coffee;
 import ru.nemcov.coffee_maker.repo.CoffeeRepo;
 import ru.nemcov.coffee_maker.service.CoffeeService;
 import ru.nemcov.coffee_maker.service.ConsumableService;
+import ru.nemcov.coffee_maker.service.IngredientService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -17,7 +18,8 @@ class CoffeeServiceTest {
 
     private final CoffeeRepo coffeeRepo = mock(CoffeeRepo.class);
     private final ConsumableService consumableService = mock(ConsumableService.class);
-    private final CoffeeService service = new CoffeeService(coffeeRepo, consumableService);
+    private final IngredientService ingredientService = mock(IngredientService.class);
+    private final CoffeeService service = new CoffeeService(coffeeRepo, consumableService, ingredientService);
 
     @Test
     void shouldGetAllCoffee() {

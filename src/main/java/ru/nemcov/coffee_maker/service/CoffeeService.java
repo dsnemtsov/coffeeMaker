@@ -11,10 +11,12 @@ public class CoffeeService {
 
     private final CoffeeRepo coffeeRepo;
     private final ConsumableService consumableService;
+    private final IngredientService ingredientService;
 
-    public CoffeeService(CoffeeRepo coffeeRepo, ConsumableService consumableService) {
+    public CoffeeService(CoffeeRepo coffeeRepo, ConsumableService consumableService, IngredientService ingredientService) {
         this.coffeeRepo = coffeeRepo;
         this.consumableService = consumableService;
+        this.ingredientService = ingredientService;
     }
 
     public List<Coffee> findAll() {
@@ -33,6 +35,8 @@ public class CoffeeService {
         }
 
         List<Consumable> consumables = consumableService.findByCoffeeId(id);
+
+        consumables.forEach(c -> ingredientService.reduceIngredient(c.getIngredientId(), c.getQuantityRequired()));
 
         return coffee;
     }
