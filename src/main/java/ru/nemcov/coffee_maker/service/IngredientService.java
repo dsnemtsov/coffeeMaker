@@ -2,6 +2,7 @@ package ru.nemcov.coffee_maker.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.nemcov.coffee_maker.entity.Ingredient;
 import ru.nemcov.coffee_maker.repo.IngredientRepo;
 
@@ -31,5 +32,13 @@ public class IngredientService {
 
     public boolean checkQuantity(Long ingredientId, Integer quantityRequired) {
         return findById(ingredientId).getQuantity() >= quantityRequired;
+    }
+
+    @Transactional
+    public Ingredient updateIngredient(Ingredient ingredient) {
+        Ingredient dbIngredient = findById(ingredient.getIngredientId());
+        dbIngredient.setQuantity(dbIngredient.getQuantity() + ingredient.getQuantity());
+
+        return ingredientRepo.save(dbIngredient);
     }
 }

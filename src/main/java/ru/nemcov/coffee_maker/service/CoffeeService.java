@@ -56,6 +56,7 @@ public class CoffeeService {
                 coffee.setAvailable(false);
                 break;
             }
+            coffee.setAvailable(true);
         }
 
         coffeeRepo.save(coffee);
