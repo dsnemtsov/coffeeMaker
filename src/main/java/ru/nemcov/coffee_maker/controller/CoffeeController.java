@@ -33,7 +33,7 @@ public class CoffeeController {
 
     @Operation(
             description = "Получить кофе",
-            summary = "Кофе"
+            summary = "Статус вида кофе"
     )
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable Long id) {

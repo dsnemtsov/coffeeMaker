@@ -28,4 +28,8 @@ public class IngredientService {
         ingredient.setQuantity(ingredient.getQuantity() - quantityRequired);
         ingredientRepo.save(ingredient);
     }
+
+    public boolean checkQuantity(Long ingredientId, Integer quantityRequired) {
+        return findById(ingredientId).getQuantity() >= quantityRequired;
+    }
 }

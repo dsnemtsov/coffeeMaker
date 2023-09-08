@@ -38,6 +38,26 @@ public class CoffeeService {
 
         consumables.forEach(c -> ingredientService.reduceIngredient(c.getIngredientId(), c.getQuantityRequired()));
 
+        updateList();
+
         return coffee;
+    }
+
+    public void updateList() {
+        List<Coffee> coffees = findAll();
+        coffees.forEach(this::updateAvailable);
+    }
+
+    private void updateAvailable(Coffee coffee) {
+        List<Consumable> consumables = consumableService.findByCoffeeId(coffee.getCoffeeId());
+
+        for (Consumable consumable : consumables) {
+            if (!ingredientService.checkQuantity(consumable.getIngredientId(), consumable.getQuantityRequired())) {
+                coffee.setAvailable(false);
+                break;
+            }
+        }
+
+        coffeeRepo.save(coffee);
     }
 }

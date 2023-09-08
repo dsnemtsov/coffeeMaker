@@ -48,4 +48,20 @@ class IngredientServiceTest {
         verify(ingredientRepo).findById(1L);
         verify(ingredientRepo).save(ingredient);
     }
+
+    @Test
+    void shouldCheckQuantity() {
+        Ingredient ingredient = Ingredient
+                .builder()
+                .ingredientId(1L)
+                .name("Молоко")
+                .quantity(4)
+                .build();
+
+        when(ingredientRepo.findById(1L)).thenReturn(Optional.of(ingredient));
+
+        Integer quantityRequired = 6;
+
+        assertThat(service.checkQuantity(1L, quantityRequired)).isFalse();
+    }
 }

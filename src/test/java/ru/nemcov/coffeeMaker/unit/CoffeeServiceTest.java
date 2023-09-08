@@ -1,8 +1,10 @@
 package ru.nemcov.coffeeMaker.unit;
 
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import ru.nemcov.coffee_maker.entity.Coffee;
+import ru.nemcov.coffee_maker.entity.Consumable;
 import ru.nemcov.coffee_maker.repo.CoffeeRepo;
 import ru.nemcov.coffee_maker.service.CoffeeService;
 import ru.nemcov.coffee_maker.service.ConsumableService;
@@ -66,5 +68,29 @@ class CoffeeServiceTest {
         assertThatExceptionOfType(IllegalStateException.class)
                 .isThrownBy(() -> service.orderCoffee(1L))
                 .withMessage("Coffee is not available");
+    }
+
+    @Test
+    void shouldSetCoffeeUnavailable() {
+        Coffee coffee = Coffee
+                .builder()
+                .coffeeId(1L)
+                .available(true)
+                .build();
+
+        Consumable consumable = Consumable
+                .builder()
+                .quantityRequired(6)
+                .build();
+
+        List<Coffee> coffees = List.of(coffee);
+
+        when(coffeeRepo.findAll()).thenReturn(coffees);
+        when(consumableService.findByCoffeeId(coffee.getCoffeeId())).thenReturn(List.of(consumable));
+        when(ingredientService.checkQuantity(consumable.getIngredientId(), consumable.getQuantityRequired())).thenReturn(false);
+
+        service.updateList();
+
+        assertThat(coffee.isAvailable()).isFalse();
     }
 }
