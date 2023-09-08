@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.nemcov.coffee_maker.entity.Coffee;
 import ru.nemcov.coffee_maker.entity.Consumable;
 import ru.nemcov.coffee_maker.repo.CoffeeRepo;
-import ru.nemcov.coffee_maker.repo.ConsumableRepo;
 
 @Service
 public class CoffeeService {
@@ -30,7 +29,7 @@ public class CoffeeService {
         Coffee coffee = findById(id);
 
         if (!coffee.isAvailable()) {
-            throw   new IllegalStateException("Coffee is not available");
+            throw new IllegalStateException("Coffee is not available");
         }
 
         List<Consumable> consumables = consumableService.findByCoffeeId(id);
