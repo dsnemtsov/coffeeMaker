@@ -21,3 +21,11 @@ CREATE TABLE IF NOT EXISTS consumable
     FOREIGN KEY (coffee_id) REFERENCES coffee (coffee_id),
     FOREIGN KEY (ingredient_id) REFERENCES ingredient (ingredient_id)
 );
+
+CREATE TABLE IF NOT EXISTS coffee_log
+(
+    coffee_log_id     SERIAL PRIMARY KEY,
+    coffee_id         INTEGER NOT NULL,
+    create_date       TIMESTAMP WITH TIME ZONE NOT NULL,
+    FOREIGN KEY (coffee_id) REFERENCES coffee (coffee_id)
+);
