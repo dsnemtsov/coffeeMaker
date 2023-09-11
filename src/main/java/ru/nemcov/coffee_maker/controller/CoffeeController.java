@@ -33,7 +33,7 @@ public class CoffeeController {
     }
 
     @Operation(
-            description = "Получить кофе",
+            description = "Получить статус кофе",
             summary = "Статус вида кофе"
     )
     @GetMapping("/{id}")
